@@ -145,13 +145,13 @@ namespace Task2 {
             return Math.Pow(p*(p - sides[0])*(p - sides[1])*(p - sides[2]), 0.5);
         }
 
-        private bool Valide(double[] sides) {
-            if (sides.Length != 3 || sides.Any(x => x <= 0))
+        private bool Valide(double[] s) {
+            if (s.Length != 3 || s.Any(x => x <= 0))
                 return false;
             
-            double a = sides[0];
-            double b = sides[1];
-            double c = sides[2];
+            double a = s[0];
+            double b = s[1];
+            double c = s[2];
             return a < b + c && a > b - c && b < a + c && b > a - c && c < a + b && c > a - b;
         }
     }
