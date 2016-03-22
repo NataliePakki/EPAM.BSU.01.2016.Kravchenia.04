@@ -5,13 +5,12 @@ using System.Linq;
 
 
 namespace Task2 {
-    internal interface IFigure {
-        Point Center { get; set; }
+    public interface IShape {
         double GetPerimetr();
         double GetArea();
     }
 
-    public class Ellipse : IFigure {
+    public class Ellipse : IShape {
         private double width;
         private double height;
 
@@ -33,19 +32,15 @@ namespace Task2 {
                 else throw new ArgumentException();
             }
         }
-        public Point Center { get; set; }
 
-        public Ellipse(Point center, double height, double width) {
-            Center = center;
+        public Ellipse(double height, double width) {
             Height = height;
             Width = width;
         }
 
-        public Ellipse(double height, double width) : this(new Point(0, 0), height, width) {}
-
-
+        
         public double GetPerimetr() {
-            return 4*(Math.PI*Height*Width + Math.Abs(Width - Height)/(Width + Height));
+            return 4*(Math.PI*Height*Width + Math.Abs(Width - Height))/(Width + Height);
         }
 
         public double GetArea() {
@@ -58,12 +53,11 @@ namespace Task2 {
     }
 
     public class Circle : Ellipse {
-        public Circle(Point center, double height) : base(center, height, height) {}
-        public Circle(double height) : this(new Point(0, 0), height) {}
+        public Circle(double height) : base(height,height) {}
     }
 
 
-    public class Rectangle : IFigure {
+    public class Rectangle : IShape {
         private double height;
         private double width;
         public double Heigth
@@ -86,15 +80,12 @@ namespace Task2 {
                 else throw new ArgumentException();
             }
         }
-        public Point Center { get; set; }
 
-        public Rectangle(Point center, double heigth, double width) {
-            Center = center;
+        public Rectangle(double heigth, double width) {
             Heigth = heigth;
             Width = width;
         }
 
-        public Rectangle(double heigth, double width) : this(new Point(0, 0), heigth, width) {}
 
         public double GetPerimetr() {
             return 2*Heigth + 2*Width;
@@ -110,12 +101,11 @@ namespace Task2 {
     }
 
     public class Square : Rectangle {
-        public Square(Point center, double heigth) : base(center, heigth, heigth) {}
         public Square(double heigth) : base(heigth, heigth) {}
     }
 
 
-    public class Triangle : IFigure {
+    public class Triangle : IShape {
         public Point Center { get; set; }
 
         private double[] sides;
@@ -129,12 +119,10 @@ namespace Task2 {
             }
         }
 
-        public Triangle(Point center, params double[] sides) {
-            Center = center;
+        public Triangle(params double[] sides) {
             Sides = sides;
         }
 
-        public Triangle(params double[] sides) : this(new Point(0, 0), sides) {}
 
         public double GetPerimetr() {
             return sides.Sum();
